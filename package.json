@@ -9,5 +9,9 @@
     "start": "vue serve --open",
     "build": "vue build"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "sass": "^1.26.10",
+    "sass-loader": "^10.0.1"
+  }
 }

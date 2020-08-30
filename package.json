@@ -1,0 +1,13 @@
+{
+  "name": "elbereth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/themarkappleby/elbereth.git",
+  "author": "themarkappleby <themarkappleby@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "vue serve --open",
+    "build": "vue build"
+  },
+  "devDependencies": {}
+}

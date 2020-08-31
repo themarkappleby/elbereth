@@ -1,29 +1,49 @@
 <template>
-  <div class="gui">
-    <div class="group left">
-      <div class="card">
-        Sword
+  <div>
+    <div class="die">{{ die }}</div>
+    <div class="cards">
+      <div class="group left">
+        <div class="card">
+          Sword
+        </div>
       </div>
-    </div>
-    <div class="group middle">
-      <div class="card">
-        Coin
+      <div class="group middle">
+        <div class="card">
+          Coin
+        </div>
       </div>
-    </div>
-    <div class="group right">
-      <div class="card">
-        Armor
+      <div class="group right">
+        <div class="card">
+          Armor
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {}
+  import store from '../store'
+  export default {
+    computed: {
+      die () {
+        return store.state.die
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
-  .gui {
+  .die {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 20px 27px;
+    background: white;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  .cards {
     position: absolute;
     bottom: -40px;
     left: 20px;
@@ -75,7 +95,6 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    font-family: sans-serif;
     color: black;
     font-weight: bold;
     cursor: pointer;

@@ -1,7 +1,7 @@
 export default function explore (state) {
   const newCards = []
   state.map.forEach(card => {
-    if (card.safe) {
+    if (card.safe || card.flipped) {
       [
         [card.x, card.y - 1],
         [card.x, card.y + 1],

@@ -47,12 +47,12 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: sans-serif;
   }
   *, *:before, *:after {
     box-sizing: border-box;
   }
   .map {
-    font-family: sans-serif;
     background: #eee;
     width: 100vw;
     height: 100vh;

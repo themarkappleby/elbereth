@@ -6,13 +6,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    die: 1,
     map: [
       {
         name: 'Stairs',
         id: 'stairs',
         safe: true,
         x: 0,
-        y: 0
+        y: 0,
+        flipped: false
       }
     ],
     deck: [
@@ -22,13 +24,14 @@ export default new Vuex.Store({
       ...addCards('Dragon', 1, { safe: false, strength: 6 }),
       ...addCards('Shop', 2, { safe: true }),
       ...addCards('Wall', 10, { safe: false }),
-      { name: 'Sword', id: 'Sword', safe: true },
-      { name: 'Staff', id: 'Staff', safe: true },
-      { name: 'Bow', id: 'Bow', safe: true },
-      { name: 'Helm', id: 'Helm', safe: true },
-      { name: 'Gauntlets', id: 'Gauntlets', safe: true },
-      { name: 'Armor', id: 'Armor', safe: true },
-      { name: 'Stairs Down', id: 'Stairs-Down', safe: true }
+      { name: 'Sword', id: 'Sword', safe: true, flipped: false },
+      { name: 'Staff', id: 'Staff', safe: true, flipped: false },
+      { name: 'Bow', id: 'Bow', safe: true, flipped: false },
+      { name: 'Helm', id: 'Helm', safe: true, flipped: false },
+      { name: 'Gauntlets', id: 'Gauntlets', safe: true, flipped: false },
+      { name: 'Armor', id: 'Armor', safe: true, flipped: false },
+      { name: 'Coin', id: 'Coin', safe: true, flipped: false },
+      { name: 'Stairs Down', id: 'Stairs-Down', safe: true, flipped: false }
     ],
     inventory: {
       sword: {
@@ -67,11 +70,17 @@ export default new Vuex.Store({
     explore (state) {
       explore(state)
     },
-    click (state, payload) {
+    fight (state, payload) {
       payload.card.safe = true
       payload.card.name = ''
       payload.card.strength = null
       explore(state)
+    },
+    flip (state, payload) {
+      payload.card.flipped = true
+    },
+    roll (state) {
+      state.die = Math.floor(Math.random() * 6) + 1
     }
   }
 })
@@ -81,6 +90,7 @@ function addCards (name, cnt, options) {
   for (let i = 1; i <= cnt; i++) {
     coll.push({
       name,
+      flipped: false,
       id: `${name}-${i}`,
       safe: false,
       x: 0,

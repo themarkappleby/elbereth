@@ -2,53 +2,44 @@
   <div>
     <div class="map">
       <div class="map-inner">
-        <Card v-for="card in state.map" v-bind:card="card" v-bind:key="card.id" v-bind:state="state" />
+        <Card v-for="card in map" v-bind:card="card" v-bind:key="card.id" />
       </div>
     </div>
-    <Inventory v-bind:state="state" />
+    <GUI />
   </div>
 </template>
 
 <script>
-import initialState from './initialState'
-import Card from './components/Card.vue'
-import Inventory from './components/Inventory.vue'
-import explore from './utils/explore'
+  import store from './store'
+  import Card from './components/Card.vue'
+  import GUI from './components/GUI.vue'
 
-window.map = {
-  width: 5000,
-  height: 5000
-}
-
-const state = initialState()
-shuffle(state.deck)
-
-export default {
-  components: {
-    Card,
-    Inventory
-  },
-  mounted: function () {
-    const mapInner = document.querySelector('.map-inner')
-    mapInner.style.width = window.map.width + 'px'
-    mapInner.style.height = window.map.height + 'px'
-    document.querySelector('.map').scrollTo(
-      (window.map.width / 2) - (window.innerWidth / 2),
-      (window.map.height / 2) - (window.innerHeight / 2)
-    )
-    explore(state)
-  },
-  data: function() {
-    return { state };
+  window.map = {
+    width: 5000,
+    height: 5000
   }
-}
 
-function shuffle (array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+  store.commit('shuffle')
+
+  export default {
+    components: {
+      Card,
+      GUI
+    },
+    mounted: function () {
+      const mapInner = document.querySelector('.map-inner')
+      mapInner.style.width = window.map.width + 'px'
+      mapInner.style.height = window.map.height + 'px'
+      document.querySelector('.map').scrollTo(
+        (window.map.width / 2) - (window.innerWidth / 2),
+        (window.map.height / 2) - (window.innerHeight / 2)
+      )
+      store.commit('explore')
+    },
+    data: function() {
+      return { map: store.state.map };
     }
-}
+  }
 </script>
 
 <style>

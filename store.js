@@ -1,5 +1,11 @@
-export default function cards () {
-  return {
+import Vue from 'vue'
+import Vuex from 'vuex'
+import explore from './utils/explore'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
     map: [
       {
         name: 'Stairs',
@@ -26,7 +32,7 @@ export default function cards () {
     ],
     inventory: {
       sword: {
-        equipped: false
+        equipped: true
       },
       staff: {
         equipped: false
@@ -35,7 +41,7 @@ export default function cards () {
         equipped: false
       },
       armor: {
-        equipped: false
+        equipped: true
       },
       gauntlets: {
         equipped: false
@@ -45,10 +51,30 @@ export default function cards () {
       },
       coin: {
         equipped: false
+      },
+      key: {
+        equipped: false
       }
     }
+  },
+  mutations: {
+    shuffle (state) {
+      for (let i = state.deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [state.deck[i], state.deck[j]] = [state.deck[j], state.deck[i]]
+      }
+    },
+    explore (state) {
+      explore(state)
+    },
+    click (state, payload) {
+      payload.card.safe = true
+      payload.card.name = ''
+      payload.card.strength = null
+      explore(state)
+    }
   }
-}
+})
 
 function addCards (name, cnt, options) {
   const coll = []

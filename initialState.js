@@ -3,7 +3,7 @@ export default function cards () {
     map: [
       {
         name: 'Stairs',
-        id: 'staris',
+        id: 'stairs',
         safe: true,
         x: 0,
         y: 0

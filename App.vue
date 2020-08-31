@@ -1,14 +1,18 @@
 <template>
-  <div class="map">
-    <div class="map-inner">
-      <Card v-for="card in state.map" v-bind:card="card" v-bind:key="card.id" v-bind:state="state" />
+  <div>
+    <div class="map">
+      <div class="map-inner">
+        <Card v-for="card in state.map" v-bind:card="card" v-bind:key="card.id" v-bind:state="state" />
+      </div>
     </div>
+    <Inventory v-bind:state="state" />
   </div>
 </template>
 
 <script>
 import initialState from './initialState'
 import Card from './components/Card.vue'
+import Inventory from './components/Inventory.vue'
 import explore from './utils/explore'
 
 window.map = {
@@ -21,7 +25,8 @@ shuffle(state.deck)
 
 export default {
   components: {
-    Card
+    Card,
+    Inventory
   },
   mounted: function () {
     const mapInner = document.querySelector('.map-inner')
@@ -50,6 +55,7 @@ function shuffle (array) {
   body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
   *, *:before, *:after {
     box-sizing: border-box;

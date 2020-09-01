@@ -41,12 +41,14 @@
           }
         } else if (store.state.forceHUD) {
           if (card.flipped) {
-            store.commit({type: 'discard', card})
-            store.commit('releaseHUD')
-            store.commit({
-              type: 'setStrength',
-              requiredStrength: 0
-            })
+            if (card.name !== 'Coin' && card.name !== 'Key') {
+              store.commit({type: 'discard', card})
+              store.commit('releaseHUD')
+              store.commit({
+                type: 'setStrength',
+                requiredStrength: 0
+              })
+            }
           } else {
             store.commit({ type: 'flip', card })
             if (card.type === 'armor') {

@@ -68,7 +68,12 @@
           const roll = Math.floor(Math.random() * 6) + 1
           const lookupTable = ['sword', 'staff', 'bow', 'armor', 'helm', 'gauntlets']
           const id = lookupTable[roll - 1]
-          if (!store.state.inv[id].flipped) {
+          if (store.state.inv[id].flipped) {
+            store.commit({
+              type: 'discard',
+              card: store.state.inv[id]
+            })
+          } else {
             store.commit({
               type: 'flip',
               card: store.state.inv[id]

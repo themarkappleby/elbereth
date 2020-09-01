@@ -5,7 +5,7 @@
       Requires {{strength}}
     </div>
     <div class="remaining">
-      {{remaining}}
+      {{remaining}} / {{total}}
     </div>
     <div class="cards" v-bind:class="{force: forceHUD}">
       <div class="group left">
@@ -88,6 +88,9 @@
       },
       remaining () {
         return store.state.deck.length
+      },
+      total () {
+        return store.state.deckSize
       },
       forceHUD () {
         return store.state.forceHUD

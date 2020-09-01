@@ -41,6 +41,7 @@ export default new Vuex.Store({
     engaged: null,
     shopping: false,
     map: [ENTRANCE],
+    deckSize: 45,
     deck: [
       DESCEND,
       BOSS,
@@ -172,6 +173,7 @@ export default new Vuex.Store({
         card.flipped = false
       })
       state.map = [ENTRANCE]
+      state.deckSize = state.deck.length + 1
       commit('explore')
     }
   }

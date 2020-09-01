@@ -21,12 +21,12 @@ export default new Vuex.Store({
       }
     ],
     deck: [
-      ...addCards('Rat', 5, { safe: false, strength: 3 }),
-      ...addCards('Spider', 5, { safe: false, strength: 4 }),
-      ...addCards('Snake', 5, { safe: false, strength: 5 }),
+      ...addCards('Rat', 7, { safe: false, strength: 3 }),
+      ...addCards('Spider', 7, { safe: false, strength: 4 }),
+      ...addCards('Snake', 7, { safe: false, strength: 5 }),
       ...addCards('Dragon', 1, { safe: false, strength: 6 }),
       ...addCards('Shop', 2, { safe: true }),
-      ...addCards('Wall', 10, { safe: false }),
+      ...addCards('Wall', 12, { safe: false }),
       { name: 'Sword', id: 'sword', safe: true, flipped: false, type: 'item' },
       { name: 'Staff', id: 'staff', safe: true, flipped: false, type: 'item' },
       { name: 'Bow', id: 'bow', safe: true, flipped: false, type: 'item' },

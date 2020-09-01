@@ -1,12 +1,25 @@
 <template>
-  <div class="card" v-bind:class="{ flipped: flipped, safe: safe }" :style="style" v-on:click="$emit('click', $event, card)">
+  <div
+    class="card"
+    v-bind:class="{
+      flipped: flipped,
+      safe: safe,
+      inv: inv
+    }"
+    :style="style"
+    v-on:click="$emit('click', $event, card)"
+  >
     <div class="card-front">
       {{ card.name }}
       <div class="strength" v-if="card.strength">
         {{card.strength}}
       </div>
     </div>
-    <div class="card-back"></div>
+    <div class="card-back">
+      <span v-if="card.inv">
+        {{card.name}}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -21,6 +34,9 @@
       },
       safe() {
         return this.card.safe
+      },
+      inv() {
+        return this.card.inv
       },
       style() {
         if (this.card.x !== undefined && this.card.y !== undefined) {
@@ -53,6 +69,13 @@
       }
       z-index: 1;
     }
+    &.inv.flipped:hover {
+      .card-back {
+        box-shadow: 0 10px 10px rgba(black,0.2);
+        transform: translateY(-5px) rotateY(0) rotateZ(3deg) scale(1.05);
+      }
+      z-index: 1;
+    }
     .card-front, .card-back {
       position: absolute;
       top: 0;
@@ -63,17 +86,17 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(black,0.1);
       transition: all 0.2s ease-in-out;
-    }
-    .card-front {
       padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
-      color: white;
       font-weight: bold;
       font-size: 13px;
       text-align: center;
+    }
+    .card-front {
+      cursor: pointer;
+      color: white;
       background: #AE2F2E;
     }
     .card-back {
@@ -89,6 +112,25 @@
       }
       .card-back {
         transform: rotateY(0deg);
+      }
+    }
+    &.inv {
+      width: 120px;
+      height: 160px;
+      border-radius: 14px;
+      top: auto;
+      margin: 0;
+      position: relative;
+      .card-front {
+        font-size: 16px;
+        background: white;
+        color: black;
+      }
+      .card-back {
+        font-size: 16px;
+        background: black;
+        color: white;
+        cursor: pointer;
       }
     }
     .strength {

@@ -35,30 +35,58 @@ export default new Vuex.Store({
       { name: 'Coin', id: 'Coin', safe: true, flipped: false },
       { name: 'Stairs Down', id: 'Stairs-Down', safe: true, flipped: false }
     ],
-    inventory: {
+    inv: {
       sword: {
-        equipped: true
+        name: 'Sword',
+        type: 'weapon',
+        inv: true,
+        flipped: false,
+        discarded: false
       },
       staff: {
-        equipped: false
+        name: 'Staff',
+        type: 'weapon',
+        inv: true,
+        flipped: false,
+        discarded: false
       },
       bow: {
-        equipped: false
+        name: 'Bow',
+        type: 'weapon',
+        inv: true,
+        flipped: false,
+        discarded: false
       },
       armor: {
-        equipped: true
+        name: 'Armor',
+        type: 'armor',
+        inv: true,
+        flipped: false,
+        discarded: false
       },
       gauntlets: {
-        equipped: false
+        name: 'Gauntlets',
+        type: 'armor',
+        inv: true,
+        flipped: true,
+        discarded: false
       },
       helm: {
-        equipped: false
+        name: 'Helm',
+        type: 'armor',
+        inv: true,
+        flipped: true,
+        discarded: false
       },
       coin: {
-        equipped: false
+        name: 'Coin',
+        inv: true,
+        flipped: true
       },
       key: {
-        equipped: false
+        name: 'Key',
+        inv: true,
+        flipped: true
       }
     }
   },
@@ -92,6 +120,12 @@ export default new Vuex.Store({
     },
     roll (state) {
       state.die = Math.floor(Math.random() * 6) + 1
+    },
+    increaseDie (state) {
+      state.die += 1
+    },
+    discard (state, payload) {
+      payload.card.discarded = true
     }
   }
 })

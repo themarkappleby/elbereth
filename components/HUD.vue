@@ -6,19 +6,18 @@
     </div>
     <div class="cards" v-bind:class="{force: forceHUD}">
       <div class="group left">
-        <div class="card">
-          Sword
-        </div>
+        <Card v-bind:card="inv.sword" v-on:click="click" v-if="!inv.sword.discarded" />
+        <Card v-bind:card="inv.staff" v-on:click="click" v-if="!inv.staff.discarded" />
+        <Card v-bind:card="inv.bow" v-on:click="click" v-if="!inv.bow.discarded" />
       </div>
       <div class="group middle">
-        <div class="card">
-          Coin
-        </div>
+        <Card v-bind:card="inv.armor" v-on:click="click" v-if="!inv.armor.discarded" />
+        <Card v-bind:card="inv.helm" v-on:click="click" v-if="!inv.helm.discarded" />
+        <Card v-bind:card="inv.gauntlets" v-on:click="click" v-if="!inv.gauntlets.discarded" />
       </div>
       <div class="group right">
-        <div class="card">
-          Armor
-        </div>
+        <Card v-bind:card="inv.coin" v-on:click="click" />
+        <Card v-bind:card="inv.key" v-on:click="click" />
       </div>
     </div>
   </div>
@@ -26,8 +25,43 @@
 
 <script>
   import store from '../store'
+  import Card from './Card.vue'
   export default {
+    components: { Card },
+    methods: {
+      click(evt, card) {
+        if (card.flipped) {
+          store.commit({type: 'discard', card})
+          store.commit('releaseHUD')
+          store.commit({
+            type: 'setStrength',
+            requiredStrength: 0
+          })
+        } else {
+          store.commit({ type: 'flip', card })
+          if (card.type === 'armor') {
+            store.commit('releaseHUD')
+            store.commit({
+              type: 'setStrength',
+              requiredStrength: 0
+            })
+          } else if (card.type === 'weapon') {
+            store.commit('increaseDie')
+            if (store.state.die >= store.state.requiredStrength) {
+              store.commit('releaseHUD')
+              store.commit({
+                type: 'setStrength',
+                requiredStrength: 0
+              })
+            }
+          }
+        }
+      }
+    },
     computed: {
+      inv () {
+        return store.state.inv
+      },
       strength () {
         return store.state.requiredStrength
       },
@@ -68,6 +102,7 @@
     width: calc(100vw - 40px);
     z-index: 20;
     transition: all 0.2s ease-in-out;
+    display: flex;
     &:before {
       content: '';
       transition: all 0.2s ease-in-out;
@@ -93,46 +128,15 @@
     }
   }
   .group {
-    position: absolute;
-    bottom: 0;
-    &.left {
-      left: 0;
-    }
+    width: 33.33%;
+    display: flex;
+    flex-direction: row;
     &.middle {
-      left: calc(50% - 100px);
-      transform: translateX(-50%);
+      justify-content: center;
     }
     &.right {
       right: 0;
-      & .card {
-        left: auto;
-        right: 0;
-      }
-    }
-  }
-  .card {
-    padding: 20px;
-    border-radius: 14px;
-    background: white;
-    font-size: 16px;
-    width: 120px;
-    height: 160px;
-    box-shadow: 0 0 10px rgba(black,0.1);
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    &:hover {
-      transform: translateY(-25px) rotate(3deg) scale(1.05);
-      box-shadow: 0 10px 10px rgba(black,0.2);
-      z-index: 1;
+      justify-content: flex-end;
     }
   }
 </style>

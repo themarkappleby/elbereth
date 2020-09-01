@@ -4,6 +4,35 @@ import explore from './utils/explore'
 
 Vue.use(Vuex)
 
+const ENTRANCE = {
+  name: 'Entrance',
+  id: 'entrance',
+  safe: true,
+  x: 0,
+  y: 0,
+  flipped: false
+}
+
+const DESCEND = {
+  name: 'Descend',
+  id: 'descend',
+  safe: true,
+  flipped: false,
+  x: 1,
+  y: 0
+}
+
+const BOSS = {
+  name: 'Dragon',
+  id: 'dragon',
+  strength: 6,
+  type: 'boss',
+  flipped: false,
+  safe: false,
+  x: 0,
+  y: 0
+}
+
 export default new Vuex.Store({
   state: {
     die: 1,
@@ -11,22 +40,13 @@ export default new Vuex.Store({
     requiredStrength: 0,
     engaged: null,
     shopping: false,
-    map: [
-      {
-        name: 'Entrance',
-        id: 'stairs',
-        safe: true,
-        x: 0,
-        y: 0,
-        flipped: false
-      }
-    ],
+    map: [ENTRANCE],
     deck: [
-      { name: 'Descend', id: 'descend', safe: true, flipped: false },
+      DESCEND,
+      BOSS,
       ...addCards('Rat', 7, { safe: false, strength: 3 }),
       ...addCards('Spider', 7, { safe: false, strength: 4 }),
       ...addCards('Snake', 7, { safe: false, strength: 5 }),
-      ...addCards('Dragon', 1, { safe: false, strength: 6 }),
       ...addCards('Shop', 2, { safe: true }),
       ...addCards('Wall', 12, { safe: false }),
       { name: 'Sword', id: 'sword', safe: true, flipped: false, type: 'item' },
@@ -83,7 +103,7 @@ export default new Vuex.Store({
       coin: {
         name: 'Coin',
         inv: true,
-        flipped: false
+        flipped: true
       },
       key: {
         name: 'Key',
@@ -131,6 +151,28 @@ export default new Vuex.Store({
     },
     discard (state, payload) {
       payload.card.discarded = true
+    }
+  },
+  actions: {
+    descend ({ commit, state }) {
+      state.inv.key.flipped = true
+      state.map = state.map.filter(card => {
+        return card.name !== 'Entrance' && card.name !== 'Descend' && card.type !== 'boss'
+      })
+      state.deck = state.deck.filter(card => {
+        return card.name !== 'Entrance' && card.name !== 'Descend' && card.type !== 'boss'
+      })
+      state.deck = [...state.deck, ...state.map]
+      commit('shuffle')
+      state.deck = [...state.deck.splice(7), BOSS, DESCEND]
+      commit('shuffle')
+      state.deck.forEach(card => {
+        card.x = 0
+        card.y = 0
+        card.flipped = false
+      })
+      state.map = [ENTRANCE]
+      commit('explore')
     }
   }
 })

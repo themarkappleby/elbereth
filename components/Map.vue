@@ -42,6 +42,9 @@
           if (store.state.die >= strength) {
             store.commit({ type: 'flip', card })
             store.commit('explore')
+            if (card.type === 'boss') {
+              store.commit('flip', { card: store.state.inv.key })
+            }
           } else {
             store.commit({
               type: 'setStrength',
@@ -88,6 +91,8 @@
             store.commit('forceHUD')
             store.commit('startShopping')
           }
+        } else if (card.id === 'descend' && !store.state.inv.key.flipped) {
+          store.dispatch('descend')
         }
       }
     }

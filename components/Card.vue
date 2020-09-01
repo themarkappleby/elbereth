@@ -128,7 +128,7 @@
       }
       .card-back {
         font-size: 16px;
-        background: black;
+        background: #c8c8c8;
         color: white;
         cursor: pointer;
       }

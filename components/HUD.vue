@@ -68,6 +68,9 @@
                   card: store.state.engaged
                 })
                 store.commit('explore')
+                if (store.state.engaged.type === 'boss') {
+                  store.commit('flip', { card: store.state.inv.key })
+                }
               }
             }
           }
@@ -99,6 +102,7 @@
     position: absolute;
     top: 16px;
     right: 16px;
+    box-shadow: 0 0 20px rgba(black, 0.4);
     padding: 20px 27px;
     background: white;
     border-radius: 12px;

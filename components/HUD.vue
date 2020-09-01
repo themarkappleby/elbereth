@@ -79,7 +79,8 @@
       height: 200px;
       opacity: 0.2;
       pointer-events: none;
-      background: linear-gradient(rgba(black, 0), rgba(black, 0.7));
+      background: linear-gradient(rgba(#AE2F2E, 0), rgba(#AE2F2E, 0.7));
+      filter: grayscale(100%);
     }
     &.force {
       bottom: -10px;
@@ -87,6 +88,7 @@
         pointer-events: all;
         height: 100vh;
         opacity: 0.9;
+        filter: grayscale(0);
       }
     }
   }

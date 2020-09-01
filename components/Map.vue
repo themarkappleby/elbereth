@@ -36,6 +36,9 @@
     methods: {
       click(evt, card) {
         if (card.flipped) return false
+        if (store.state.engaged && store.state.engaged.id === card.id) {
+          return false
+        }
         const strength = card.strength
         if (strength) {
           store.commit('roll')

@@ -1,11 +1,9 @@
 <template>
   <div class="HUD">
-    <div class="die">{{ die }}</div>
-    <div class="strength" v-if="strength">
-      Requires {{strength}}
-    </div>
+    <div class="die" v-if="die">{{ die }}</div>
     <div class="remaining">
-      {{remaining}} / {{total}}
+      <span>{{remaining}} / {{total}}</span>
+      <span class="floor">Floor {{floor}}</span>
     </div>
     <div class="cards" v-bind:class="{force: forceHUD}">
       <div class="group left">
@@ -44,6 +42,7 @@
             if (card.name !== 'Coin' && card.name !== 'Key') {
               store.commit({type: 'discard', card})
               store.commit('releaseHUD')
+              store.commit('engage', {card: null})
               store.commit({
                 type: 'setStrength',
                 requiredStrength: 0
@@ -53,6 +52,7 @@
             store.commit({ type: 'flip', card })
             if (card.type === 'armor') {
               store.commit('releaseHUD')
+              store.commit('engage', {card: null})
               store.commit({
                 type: 'setStrength',
                 requiredStrength: 0
@@ -60,7 +60,6 @@
             } else if (card.type === 'weapon') {
               store.commit('increaseDie')
               if (store.state.die >= store.state.requiredStrength) {
-                store.commit('releaseHUD')
                 store.commit({
                   type: 'setStrength',
                   requiredStrength: 0
@@ -69,10 +68,12 @@
                   type: 'flip',
                   card: store.state.engaged
                 })
+                store.commit('releaseHUD')
                 store.commit('explore')
                 if (store.state.engaged.type === 'boss') {
                   store.commit('flip', { card: store.state.inv.key })
                 }
+                store.commit('engage', {card: null})
               }
             }
           }
@@ -85,6 +86,9 @@
       },
       strength () {
         return store.state.requiredStrength
+      },
+      floor () {
+        return store.state.floor
       },
       remaining () {
         return store.state.deck.length
@@ -128,6 +132,13 @@
   .remaining {
     top: 16px;
     left: 16px;
+    span {
+      vertical-align: middle;
+    }
+    .floor {
+      font-size: 12px;
+      margin-left: 16px;
+    }
   }
   .cards {
     position: absolute;
@@ -156,7 +167,7 @@
       &:before {
         pointer-events: all;
         height: 100vh;
-        opacity: 0.9;
+        opacity: 1;
         filter: grayscale(0);
       }
     }
@@ -165,6 +176,8 @@
     width: 33.33%;
     display: flex;
     flex-direction: row;
+    z-index: 25;
+    position: relative;
     &.middle {
       justify-content: center;
     }

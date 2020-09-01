@@ -2,9 +2,12 @@
   <div
     class="card"
     v-bind:class="{
-      flipped: flipped,
-      safe: safe,
-      inv: inv
+      flipped,
+      safe,
+      inv,
+      engaged,
+      boss,
+      descend
     }"
     :style="style"
     v-on:click="$emit('click', $event, card)"
@@ -25,6 +28,7 @@
 
 <script>
   import posToPix from '../utils/posToPix'
+  import store from '../store'
 
   export default {
     props: [ 'card' ],
@@ -37,6 +41,16 @@
       },
       inv() {
         return this.card.inv
+      },
+      boss() {
+        return this.card.type === 'boss'
+      },
+      descend() {
+        return this.card.id === 'descend'
+      },
+      engaged() {
+        if (!store.state.engaged) return false
+        return this.card.id === store.state.engaged.id
       },
       style() {
         if (this.card.x !== undefined && this.card.y !== undefined) {
@@ -93,18 +107,29 @@
       font-weight: bold;
       font-size: 13px;
       text-align: center;
+      border-width: 5px;
+      border-style: solid;
     }
     .card-front {
       cursor: pointer;
       color: white;
       background: #AE2F2E;
+      border-color: darken(#AE2F2E, 10);
+    }
+    &.boss .card-front {
+      background: darken(#AE2F2E, 10);
     }
     .card-back {
       background: #35AE2F;
+      border-color: darken(#35AE2F, 10);
       transform: rotateY(180deg) translateZ(0.1px);
     }
     &.safe .card-front {
       background: #35AE2F;
+      border-color: darken(#35AE2F, 10);
+    }
+    &.descend .card-front {
+      background: darken(#35AE2F, 10);
     }
     &.flipped {
       .card-front {
@@ -124,13 +149,21 @@
       .card-front {
         font-size: 16px;
         background: white;
+        border-color: black;
         color: black;
       }
       .card-back {
         font-size: 16px;
         background: #c8c8c8;
+        border-color: #c8c8c8;
         color: white;
         cursor: pointer;
+      }
+    }
+    &.engaged {
+      z-index: 22;
+      .card-front {
+        transform: translateY(-5px) rotate(3deg) scale(2);
       }
     }
     .strength {

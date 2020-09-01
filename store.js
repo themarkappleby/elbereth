@@ -35,7 +35,8 @@ const BOSS = {
 
 export default new Vuex.Store({
   state: {
-    die: 1,
+    die: 0,
+    floor: 1,
     forceHUD: false,
     requiredStrength: 0,
     engaged: null,
@@ -174,6 +175,7 @@ export default new Vuex.Store({
       })
       state.map = [ENTRANCE]
       state.deckSize = state.deck.length + 1
+      state.floor += 1
       commit('explore')
     }
   }

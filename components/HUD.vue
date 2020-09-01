@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="HUD">
     <div class="die">{{ die }}</div>
     <div class="strength" v-if="strength">
-      Need {{strength}}
+      Strength {{strength}}
     </div>
-    <div class="cards" v-bind:class="{force: forceGUI}">
+    <div class="cards" v-bind:class="{force: forceHUD}">
       <div class="group left">
         <div class="card">
           Sword
@@ -31,8 +31,8 @@
       strength () {
         return store.state.requiredStrength
       },
-      forceGUI () {
-        return store.state.forceGUI
+      forceHUD () {
+        return store.state.forceHUD
       },
       die () {
         return store.state.die

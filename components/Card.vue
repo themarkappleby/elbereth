@@ -38,7 +38,7 @@
               type: 'setStrength',
               strength
             })
-            store.commit('forceGUI')
+            store.commit('forceHUD')
           }
         }
       }

@@ -33,35 +33,42 @@
     components: { Card },
     methods: {
       click(evt, card) {
-        if (!store.state.forceHUD) return false
-        if (card.flipped) {
-          store.commit({type: 'discard', card})
-          store.commit('releaseHUD')
-          store.commit({
-            type: 'setStrength',
-            requiredStrength: 0
-          })
-        } else {
-          store.commit({ type: 'flip', card })
-          if (card.type === 'armor') {
+        if (store.state.shopping) {
+          if (card.flipped && card.name !== 'Key') {
+            store.commit({ type: 'flip', card })
+            store.commit('stopShopping')
+            store.commit('releaseHUD')
+          }
+        } else if (store.state.forceHUD) {
+          if (card.flipped) {
+            store.commit({type: 'discard', card})
             store.commit('releaseHUD')
             store.commit({
               type: 'setStrength',
               requiredStrength: 0
             })
-          } else if (card.type === 'weapon') {
-            store.commit('increaseDie')
-            if (store.state.die >= store.state.requiredStrength) {
+          } else {
+            store.commit({ type: 'flip', card })
+            if (card.type === 'armor') {
               store.commit('releaseHUD')
               store.commit({
                 type: 'setStrength',
                 requiredStrength: 0
               })
-              store.commit({
-                type: 'flip',
-                card: store.state.engaged
-              })
-              store.commit('explore')
+            } else if (card.type === 'weapon') {
+              store.commit('increaseDie')
+              if (store.state.die >= store.state.requiredStrength) {
+                store.commit('releaseHUD')
+                store.commit({
+                  type: 'setStrength',
+                  requiredStrength: 0
+                })
+                store.commit({
+                  type: 'flip',
+                  card: store.state.engaged
+                })
+                store.commit('explore')
+              }
             }
           }
         }

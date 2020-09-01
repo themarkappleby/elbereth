@@ -10,9 +10,10 @@ export default new Vuex.Store({
     forceHUD: false,
     requiredStrength: 0,
     engaged: null,
+    shopping: false,
     map: [
       {
-        name: 'Stairs',
+        name: 'Entrance',
         id: 'stairs',
         safe: true,
         x: 0,
@@ -21,6 +22,7 @@ export default new Vuex.Store({
       }
     ],
     deck: [
+      { name: 'Descend', id: 'descend', safe: true, flipped: false },
       ...addCards('Rat', 7, { safe: false, strength: 3 }),
       ...addCards('Spider', 7, { safe: false, strength: 4 }),
       ...addCards('Snake', 7, { safe: false, strength: 5 }),
@@ -33,8 +35,7 @@ export default new Vuex.Store({
       { name: 'Helm', id: 'helm', safe: true, flipped: false, type: 'item' },
       { name: 'Gauntlets', id: 'gauntlets', safe: true, flipped: false, type: 'item' },
       { name: 'Armor', id: 'armor', safe: true, flipped: false, type: 'item' },
-      { name: 'Coin', id: 'coin', safe: true, flipped: false, type: 'item' },
-      { name: 'Stairs Down', id: 'stairs-down', safe: true, flipped: false }
+      { name: 'Coin', id: 'coin', safe: true, flipped: false, type: 'item' }
     ],
     inv: {
       sword: {
@@ -48,14 +49,14 @@ export default new Vuex.Store({
         name: 'Staff',
         type: 'weapon',
         inv: true,
-        flipped: false,
+        flipped: true,
         discarded: false
       },
       bow: {
         name: 'Bow',
         type: 'weapon',
         inv: true,
-        flipped: false,
+        flipped: true,
         discarded: false
       },
       armor: {
@@ -82,7 +83,7 @@ export default new Vuex.Store({
       coin: {
         name: 'Coin',
         inv: true,
-        flipped: true
+        flipped: false
       },
       key: {
         name: 'Key',
@@ -101,14 +102,20 @@ export default new Vuex.Store({
     explore (state) {
       explore(state)
     },
-    forceHUD (state) {
-      state.forceHUD = true
-    },
     setStrength (state, payload) {
       state.requiredStrength = payload.strength
     },
+    forceHUD (state) {
+      state.forceHUD = true
+    },
     releaseHUD (state) {
       state.forceHUD = false
+    },
+    startShopping (state) {
+      state.shopping = true
+    },
+    stopShopping (state) {
+      state.shopping = false
     },
     engage (state, payload) {
       state.engaged = payload.card

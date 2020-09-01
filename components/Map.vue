@@ -79,6 +79,15 @@
               card: store.state.inv[id]
             })
           }
+        } else if (card.name === 'Shop') {
+          if (!store.state.inv.coin.flipped) {
+            store.commit({
+              type: 'flip',
+              card: store.state.inv.coin
+            })
+            store.commit('forceHUD')
+            store.commit('startShopping')
+          }
         }
       }
     }

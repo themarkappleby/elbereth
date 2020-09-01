@@ -1,7 +1,12 @@
 <template>
   <div class="map">
     <div class="map-inner">
-      <Card v-for="card in map" v-bind:card="card" v-bind:key="card.id" />
+      <Card
+        v-for="card in map"
+        v-bind:card="card"
+        v-bind:key="card.id"
+        v-on:click="click"
+      />
     </div>
   </div>
 </template>
@@ -26,6 +31,28 @@
     computed: {
       map () {
         return store.state.map;
+      }
+    },
+    methods: {
+      click(evt, card) {
+        if (card.flipped) return false
+        const strength = card.strength
+        if (strength) {
+          store.commit('roll')
+          if (store.state.die >= strength) {
+            store.commit({
+              type: 'flip',
+              card
+            })
+            store.commit('explore')
+          } else {
+            store.commit({
+              type: 'setStrength',
+              strength
+            })
+            store.commit('forceHUD')
+          }
+        }
       }
     }
   }

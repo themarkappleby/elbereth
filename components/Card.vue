@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-bind:class="{ flipped: flipped, safe: safe }" :style="style" v-on:click="click">
+  <div class="card" v-bind:class="{ flipped: flipped, safe: safe }" :style="style" v-on:click="$emit('click', $event, card)">
     <div class="card-front">
       {{ card.name }}
       <div class="strength" v-if="card.strength">
@@ -11,43 +11,10 @@
 </template>
 
 <script>
-  import store from '../store'
   import posToPix from '../utils/posToPix'
 
   export default {
     props: [ 'card' ],
-    data: function () {
-      return {
-        justAdded: true
-      }
-    },
-    methods: {
-      click: function () {
-        if (this.card.flipped) return false
-        const strength = this.card.strength
-        if (strength) {
-          store.commit('roll')
-          if (store.state.die >= strength) {
-            store.commit({
-              type: 'flip',
-              card: this.card
-            })
-            store.commit('explore')
-          } else {
-            store.commit({
-              type: 'setStrength',
-              strength
-            })
-            store.commit('forceHUD')
-          }
-        }
-      }
-    },
-    mounted: function () {
-      window.setTimeout(() => {
-        this.justAdded = false
-      }, 0)
-    },
     computed: {
       flipped() {
         return this.card.flipped
@@ -56,16 +23,15 @@
         return this.card.safe
       },
       style() {
-        const pos = posToPix(this.card.x, this.card.y)
-        const styles = {
-          left: `${pos.x}px`,
-          top: `${pos.y}px`
+        if (this.card.x !== undefined && this.card.y !== undefined) {
+          const pos = posToPix(this.card.x, this.card.y)
+          const styles = {
+            left: `${pos.x}px`,
+            top: `${pos.y}px`
+          }
+          return styles
         }
-        if (this.justAdded) {
-          styles.transform = 'scale(1.2) rotate(-5deg)'
-          styles.opacity = 0
-        }
-        return styles
+        return {}
       }
     }
   }
@@ -125,7 +91,6 @@
         transform: rotateY(0deg);
       }
     }
-
     .strength {
       position: absolute;
       top: 10px;

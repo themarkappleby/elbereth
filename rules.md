@@ -8,13 +8,14 @@
 
 **Explore:** Place face up dungeon cards from the deck until no more cards can be placed while adhering to the following placement rules. Stairs, shops, items and open areas should be surrounded by four dungeon cards (or as many cards as are able to fit). Anytime a new valid space for a dungeon card appears, a new dungeon card should be immediately drawn and placed there. Once all possible dungeon cards have been placed, you may carry out an action (see below).
 
-**Actions:**
+## Actions
 
 **Attack:** Choose any visible enemy to attack. Roll 1 D6. If the value is equal to or greater than the enemy’s strength (the number in the top right), you are successful. Otherwise you are unsuccessful and the enemy remains face-up.
 
 **If Successful:** Flip the enemy card over to show that it has been defeated and carry out an exploration (see above). If this enemy was the dragon, also flip over the key inventory card to show that the key for the current floor is now in your possession.
 
 **If Unsuccessful:** You must choose one of the following actions:
+
 	- Turn any number of pieces of currently equipped offensive equipment face-down (sword, staff and/or bow) to indicate that they have been used in combat. For each offensive equipment used this way, add +1 to your attack die value. If your total attack value is now equal to or greater than the enemy’s strength you are successful (see above).
 	- OR Turn one of your pieces of currently equipped protective equipment face-down (armour, helm or gauntlets) to indicate that it has been used to defend yourself.
 	- OR Suffer damage. To indicate that you have suffered damage, permanently discard one equipment card of your choosing, in this case it doesn’t matter if the equipment card is currently equipped or not (note - the coin and key are NOT pieces of equipment).
@@ -29,11 +30,10 @@ If you ever need to permanently discard an equipment card due to suffering damag
 
 **Descend:** Only when you have found the key AND you have found the down stairs on the current floor, can you can choose to descend. To descend, flip the key over to indicate that it has been used, then set aside the dragon, up stairs and down stairs cards, then gather up all of the remaining dungeon cards. Shuffle the dungeon cards and then, without revealing them, permanently remove seven dungeon cards from the game. Now place the up stairs card in front of you and shuffle the dragon and down stairs cards back into the dungeon deck. Finally, carry out an exploration of the new floor. If you descend on the seventh floor of the dungeon, you will have no more dungeon cards left in the deck and you will have won the game.
 
-———————————————————
-
 ## Boss Mini-Expansion Concept (WIP)
 
 Instead of encountering a dragon as the boss on every floor of the dungeon, this mini-expansion provides a selection of new bosses where one unique boss will randomly be shuffled into each floor of the dungeon. Once a boss is defeated, it will be permanently discarded with the other seven randomly drawn dungeon cards when you decide to descend to the next floor of the dungeon. The bosses are:
+
 	- The Knight: Bribe the knight by permanently giving him your sword. Otherwise, fight him. His strength is 6.
  	- The Mage: Bribe the mage by permanently giving him your staff. Otherwise, fight him. His strength is 6.
 	- The Marksman: Bribe the marksman by permanently giving him your bow. Otherwise, fight him. His strength is 6.

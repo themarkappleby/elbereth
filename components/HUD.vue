@@ -2,7 +2,10 @@
   <div class="HUD">
     <div class="die">{{ die }}</div>
     <div class="strength" v-if="strength">
-      Strength {{strength}}
+      Requires {{strength}}
+    </div>
+    <div class="remaining">
+      {{remaining}}
     </div>
     <div class="cards" v-bind:class="{force: forceHUD}">
       <div class="group left">
@@ -30,6 +33,7 @@
     components: { Card },
     methods: {
       click(evt, card) {
+        if (!store.state.forceHUD) return false
         if (card.flipped) {
           store.commit({type: 'discard', card})
           store.commit('releaseHUD')
@@ -70,6 +74,9 @@
       strength () {
         return store.state.requiredStrength
       },
+      remaining () {
+        return store.state.deck.length
+      },
       forceHUD () {
         return store.state.forceHUD
       },
@@ -91,14 +98,20 @@
     font-weight: bold;
     font-size: 30px;
   }
-  .strength {
+  .strength, .remaining {
     position: absolute;
     top: 36px;
-    right: 110px;
     font-weight: bold;
     font-size: 30px;
     text-align: right;
+  }
+  .strength {
     color: #AE2F2E;
+    right: 110px;
+  }
+  .remaining {
+    top: 16px;
+    left: 16px;
   }
   .cards {
     position: absolute;

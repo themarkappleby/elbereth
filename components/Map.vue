@@ -40,10 +40,7 @@
         if (strength) {
           store.commit('roll')
           if (store.state.die >= strength) {
-            store.commit({
-              type: 'flip',
-              card
-            })
+            store.commit({ type: 'flip', card })
             store.commit('explore')
           } else {
             store.commit({
@@ -54,6 +51,27 @@
             store.commit({
               type: 'engage',
               card
+            })
+          }
+        } else if (card.type === 'item') {
+          const invCard = store.state.inv[card.id]
+          if (invCard && invCard.flipped) {
+            store.commit({ type: 'flip', card })
+            store.commit({
+              type: 'flip',
+              card: invCard
+            })
+          }
+        } else if (card.name === 'Wall') {
+          store.commit({ type: 'flip', card })
+          store.commit('explore')
+          const roll = Math.floor(Math.random() * 6) + 1
+          const lookupTable = ['sword', 'staff', 'bow', 'armor', 'helm', 'gauntlets']
+          const id = lookupTable[roll - 1]
+          if (!store.state.inv[id].flipped) {
+            store.commit({
+              type: 'flip',
+              card: store.state.inv[id]
             })
           }
         }

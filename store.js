@@ -27,14 +27,14 @@ export default new Vuex.Store({
       ...addCards('Dragon', 1, { safe: false, strength: 6 }),
       ...addCards('Shop', 2, { safe: true }),
       ...addCards('Wall', 10, { safe: false }),
-      { name: 'Sword', id: 'Sword', safe: true, flipped: false },
-      { name: 'Staff', id: 'Staff', safe: true, flipped: false },
-      { name: 'Bow', id: 'Bow', safe: true, flipped: false },
-      { name: 'Helm', id: 'Helm', safe: true, flipped: false },
-      { name: 'Gauntlets', id: 'Gauntlets', safe: true, flipped: false },
-      { name: 'Armor', id: 'Armor', safe: true, flipped: false },
-      { name: 'Coin', id: 'Coin', safe: true, flipped: false },
-      { name: 'Stairs Down', id: 'Stairs-Down', safe: true, flipped: false }
+      { name: 'Sword', id: 'sword', safe: true, flipped: false, type: 'item' },
+      { name: 'Staff', id: 'staff', safe: true, flipped: false, type: 'item' },
+      { name: 'Bow', id: 'bow', safe: true, flipped: false, type: 'item' },
+      { name: 'Helm', id: 'helm', safe: true, flipped: false, type: 'item' },
+      { name: 'Gauntlets', id: 'gauntlets', safe: true, flipped: false, type: 'item' },
+      { name: 'Armor', id: 'armor', safe: true, flipped: false, type: 'item' },
+      { name: 'Coin', id: 'coin', safe: true, flipped: false, type: 'item' },
+      { name: 'Stairs Down', id: 'stairs-down', safe: true, flipped: false }
     ],
     inv: {
       sword: {
@@ -114,7 +114,7 @@ export default new Vuex.Store({
       state.engaged = payload.card
     },
     flip (state, payload) {
-      payload.card.flipped = true
+      payload.card.flipped = !payload.card.flipped
     },
     roll (state) {
       state.die = Math.floor(Math.random() * 6) + 1

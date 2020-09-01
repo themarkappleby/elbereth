@@ -33,6 +33,12 @@
               card: this.card
             })
             store.commit('explore')
+          } else {
+            store.commit({
+              type: 'setStrength',
+              strength
+            })
+            store.commit('forceGUI')
           }
         }
       }

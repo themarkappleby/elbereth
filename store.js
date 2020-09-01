@@ -7,6 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     die: 1,
+    forceGUI: false,
+    requiredStrength: 0,
     map: [
       {
         name: 'Stairs',
@@ -69,6 +71,15 @@ export default new Vuex.Store({
     },
     explore (state) {
       explore(state)
+    },
+    forceGUI (state) {
+      state.forceGUI = true
+    },
+    setStrength (state, payload) {
+      state.requiredStrength = payload.strength
+    },
+    releaseGUI (state) {
+      state.forceGUI = false
     },
     fight (state, payload) {
       payload.card.safe = true

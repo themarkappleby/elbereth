@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="die">{{ die }}</div>
-    <div class="cards">
+    <div class="strength" v-if="strength">
+      Need {{strength}}
+    </div>
+    <div class="cards" v-bind:class="{force: forceGUI}">
       <div class="group left">
         <div class="card">
           Sword
@@ -25,6 +28,12 @@
   import store from '../store'
   export default {
     computed: {
+      strength () {
+        return store.state.requiredStrength
+      },
+      forceGUI () {
+        return store.state.forceGUI
+      },
       die () {
         return store.state.die
       }
@@ -43,14 +52,25 @@
     font-weight: bold;
     font-size: 30px;
   }
+  .strength {
+    position: absolute;
+    top: 36px;
+    right: 110px;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: right;
+    color: #AE2F2E;
+  }
   .cards {
     position: absolute;
-    bottom: -40px;
+    bottom: -60px;
     left: 20px;
     width: calc(100vw - 40px);
     z-index: 20;
+    transition: all 0.2s ease-in-out;
     &:before {
       content: '';
+      transition: all 0.2s ease-in-out;
       display: block;
       position: absolute;
       bottom: 0;
@@ -60,6 +80,14 @@
       opacity: 0.2;
       pointer-events: none;
       background: linear-gradient(rgba(black, 0), rgba(black, 0.7));
+    }
+    &.force {
+      bottom: -10px;
+      &:before {
+        pointer-events: all;
+        height: 100vh;
+        opacity: 0.9;
+      }
     }
   }
   .group {

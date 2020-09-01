@@ -53,6 +53,11 @@
                 type: 'setStrength',
                 requiredStrength: 0
               })
+              store.commit({
+                type: 'flip',
+                card: store.state.engaged
+              })
+              store.commit('explore')
             }
           }
         }

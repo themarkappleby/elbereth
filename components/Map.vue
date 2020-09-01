@@ -51,6 +51,10 @@
               strength
             })
             store.commit('forceHUD')
+            store.commit({
+              type: 'engage',
+              card
+            })
           }
         }
       }

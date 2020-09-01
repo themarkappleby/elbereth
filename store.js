@@ -9,6 +9,7 @@ export default new Vuex.Store({
     die: 1,
     forceHUD: false,
     requiredStrength: 0,
+    engaged: null,
     map: [
       {
         name: 'Stairs',
@@ -109,11 +110,8 @@ export default new Vuex.Store({
     releaseHUD (state) {
       state.forceHUD = false
     },
-    fight (state, payload) {
-      payload.card.safe = true
-      payload.card.name = ''
-      payload.card.strength = null
-      explore(state)
+    engage (state, payload) {
+      state.engaged = payload.card
     },
     flip (state, payload) {
       payload.card.flipped = true

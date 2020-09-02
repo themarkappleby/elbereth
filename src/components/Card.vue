@@ -102,8 +102,8 @@
 
 <style lang="scss" scoped>
   .card {
-    width: 70px;
-    height: 94px;
+    width: 85px;
+    height: 118px;
     margin-left: -35px;
     margin-top: -47px;
     position: absolute;
@@ -111,17 +111,27 @@
     left: 0;
     &:hover {
       .card-front {
-        box-shadow: 0 10px 10px rgba(black,0.2);
-        transform: translateY(-5px) rotate(3deg) scale(1.05);
+        box-shadow: 0 10px 10px rgba(black,0.5);
+        transform: translateY(-10px) rotate(4deg) scale(1.05);
       }
       z-index: 1;
     }
+    &.inv:hover {
+      z-index: 1;
+      .card-front {
+        box-shadow: 0 10px 10px rgba(black,0.5);
+        transform: translateY(-50px) rotate(4deg) scale(1.05);
+      }
+    }
     &.inv.flipped:hover {
+      z-index: 99999;
+      .card-front {
+        transform: none;
+      }
       .card-back {
         box-shadow: 0 10px 10px rgba(black,0.2);
         transform: translateY(-5px) rotateY(0) rotateZ(3deg) scale(1.05);
       }
-      z-index: 1;
     }
     .card-front, .card-back {
       position: absolute;
@@ -140,30 +150,16 @@
       font-weight: bold;
       font-size: 13px;
       text-align: center;
-      border-width: 1px;
-      border-style: solid;
+      border: 1px solid #848484;
       background-size: cover;
+      background-color: white;
     }
     .card-front {
       cursor: pointer;
       color: black;
-      background-color: #AE2F2E;
-      border-color: darken(#AE2F2E, 10);
-    }
-    &.boss .card-front {
-      background-color: darken(#AE2F2E, 10);
     }
     .card-back {
-      background-color: #35AE2F;
-      border-color: darken(#35AE2F, 10);
       transform: rotateY(180deg) translateZ(0.1px);
-    }
-    &.safe .card-front {
-      background-color: #35AE2F;
-      border-color: darken(#35AE2F, 10);
-    }
-    &.descend .card-front {
-      background-color: darken(#35AE2F, 10);
     }
     &.flipped {
       .card-front {
@@ -175,7 +171,7 @@
     }
     &.inv {
       width: 120px;
-      height: 160px;
+      height: 175px;
       border-radius: 14px;
       top: auto;
       margin: 0;
@@ -183,13 +179,11 @@
       .card-front {
         font-size: 16px;
         background-color: white;
-        border-color: black;
         color: black;
       }
       .card-back {
         font-size: 16px;
         background-color: white;
-        border-color: black;
         color: #aaa;
         cursor: pointer;
       }
@@ -201,10 +195,11 @@
       }
     }
     .strength {
+      font-size: 22px;
       position: absolute;
       top: 10px;
-      right: 10px;
-      color: black;
+      right: 12px;
+      color: #B82F30;
       text-shadow:
         1px 1px 0 white,
         -1px 1px 0 white,

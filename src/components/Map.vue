@@ -118,6 +118,18 @@
     width: 100vw;
     height: 100vh;
     overflow: scroll;
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      box-shadow: inset 0 0 700px rgba(black, 0.7);
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
   }
   .map-inner {
     position: relative;

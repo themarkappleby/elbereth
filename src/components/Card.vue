@@ -10,43 +10,14 @@
         {{card.strength}}
       </div>
     </div>
-    <div class="card-back" v-bind:style="backImage">
-      <span v-if="card.inv">
-        {{card.name}}
-      </span>
-    </div>
+    <div class="card-back" v-bind:style="backImage"></div>
   </div>
 </template>
 
 <script>
   import posToPix from '../utils/posToPix'
+  import images from '../utils/images'
   import store from '../store'
-  import Entrance from '../assets/Entrance.png'
-  import Descend from '../assets/Descend.png'
-  import Shop from '../assets/Shop.png'
-  import Wall from '../assets/Wall.png'
-  import Rat from '../assets/Rat.png'
-  import Spider from '../assets/Spider.png'
-  import Snake from '../assets/Snake.png'
-  import Dragon from '../assets/Dragon.png'
-  import Sword from '../assets/Sword.png'
-  import Staff from '../assets/Staff.png'
-  import Bow from '../assets/Bow.png'
-  import Armor from '../assets/Armor.png'
-  import Gauntlets from '../assets/Gauntlets.png'
-  import Helm from '../assets/Helm.png'
-  import Coin from '../assets/Coin.png'
-  import Open from '../assets/Open.png'
-  import InvSword from '../assets/InvSword.png'
-  import InvStaff from '../assets/InvStaff.png'
-  import InvBow from '../assets/InvBow.png'
-  import InvArmor from '../assets/InvArmor.png'
-  import InvGauntlets from '../assets/InvGauntlets.png'
-  import InvHelm from '../assets/InvHelm.png'
-  import InvCoin from '../assets/InvCoin.png'
-  const images = {
-    Entrance, Descend, Shop, Wall, Rat, Spider, Snake, Dragon, Sword, Staff, Bow, Armor, Gauntlets, Helm, Coin, Open, InvSword, InvStaff, InvBow, InvArmor, InvGauntlets, InvHelm, InvCoin
-  }
 
   export default {
     props: [ 'card' ],
@@ -91,9 +62,13 @@
         }
       },
       backImage() {
-        if (this.card.inv) return
+        if (this.card.inv) {
+          return {
+            backgroundImage: `url(${images['InvNo' + this.card.name]})`
+          }
+        }
         return {
-          backgroundImage: `url(${Open})`
+          backgroundImage: `url(${images.Open})`
         }
       }
     }
@@ -186,6 +161,18 @@
         background-color: white;
         color: #aaa;
         cursor: pointer;
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: black;
+          border-radius: 9px;
+          opacity: 0.4;
+        }
       }
     }
     &.engaged {

@@ -1,24 +1,16 @@
 <template>
   <div
     class="card"
-    v-bind:class="{
-      flipped,
-      safe,
-      inv,
-      engaged,
-      boss,
-      descend
-    }"
-    :style="style"
+    v-bind:class="{ flipped, safe, inv, engaged, boss, descend }"
+    v-bind:style="pos"
     v-on:click="$emit('click', $event, card)"
   >
-    <div class="card-front">
-      {{ card.name }}
+    <div class="card-front" v-bind:style="frontImage">
       <div class="strength" v-if="card.strength">
         {{card.strength}}
       </div>
     </div>
-    <div class="card-back">
+    <div class="card-back" v-bind:style="backImage">
       <span v-if="card.inv">
         {{card.name}}
       </span>
@@ -29,6 +21,32 @@
 <script>
   import posToPix from '../utils/posToPix'
   import store from '../store'
+  import Entrance from '../assets/Entrance.png'
+  import Descend from '../assets/Descend.png'
+  import Shop from '../assets/Shop.png'
+  import Wall from '../assets/Wall.png'
+  import Rat from '../assets/Rat.png'
+  import Spider from '../assets/Spider.png'
+  import Snake from '../assets/Snake.png'
+  import Dragon from '../assets/Dragon.png'
+  import Sword from '../assets/Sword.png'
+  import Staff from '../assets/Staff.png'
+  import Bow from '../assets/Bow.png'
+  import Armor from '../assets/Armor.png'
+  import Gauntlets from '../assets/Gauntlets.png'
+  import Helm from '../assets/Helm.png'
+  import Coin from '../assets/Coin.png'
+  import Open from '../assets/Open.png'
+  import InvSword from '../assets/InvSword.png'
+  import InvStaff from '../assets/InvStaff.png'
+  import InvBow from '../assets/InvBow.png'
+  import InvArmor from '../assets/InvArmor.png'
+  import InvGauntlets from '../assets/InvGauntlets.png'
+  import InvHelm from '../assets/InvHelm.png'
+  import InvCoin from '../assets/InvCoin.png'
+  const images = {
+    Entrance, Descend, Shop, Wall, Rat, Spider, Snake, Dragon, Sword, Staff, Bow, Armor, Gauntlets, Helm, Coin, Open, InvSword, InvStaff, InvBow, InvArmor, InvGauntlets, InvHelm, InvCoin
+  }
 
   export default {
     props: [ 'card' ],
@@ -52,16 +70,31 @@
         if (!store.state.engaged) return false
         return this.card.id === store.state.engaged.id
       },
-      style() {
+      pos() {
         if (this.card.x !== undefined && this.card.y !== undefined) {
-          const pos = posToPix(this.card.x, this.card.y)
-          const styles = {
-            left: `${pos.x}px`,
-            top: `${pos.y}px`
+          const px = posToPix(this.card.x, this.card.y)
+          return {
+            left: `${px.x}px`,
+            top: `${px.y}px`
           }
-          return styles
         }
         return {}
+      },
+      frontImage() {
+        if (this.card.inv) {
+          return {
+            backgroundImage: `url(${images['Inv' + this.card.name]})`
+          }
+        }
+        return {
+          backgroundImage: `url(${images[this.card.name]})`
+        }
+      },
+      backImage() {
+        if (this.card.inv) return
+        return {
+          backgroundImage: `url(${Open})`
+        }
       }
     }
   }
@@ -98,7 +131,7 @@
       height: 100%;
       backface-visibility: hidden;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(black,0.1);
+      box-shadow: 0 0 5px rgba(black,0.2);
       transition: all 0.2s ease-in-out;
       padding: 20px;
       display: flex;
@@ -107,29 +140,30 @@
       font-weight: bold;
       font-size: 13px;
       text-align: center;
-      border-width: 5px;
+      border-width: 1px;
       border-style: solid;
+      background-size: cover;
     }
     .card-front {
       cursor: pointer;
-      color: white;
-      background: #AE2F2E;
+      color: black;
+      background-color: #AE2F2E;
       border-color: darken(#AE2F2E, 10);
     }
     &.boss .card-front {
-      background: darken(#AE2F2E, 10);
+      background-color: darken(#AE2F2E, 10);
     }
     .card-back {
-      background: #35AE2F;
+      background-color: #35AE2F;
       border-color: darken(#35AE2F, 10);
       transform: rotateY(180deg) translateZ(0.1px);
     }
     &.safe .card-front {
-      background: #35AE2F;
+      background-color: #35AE2F;
       border-color: darken(#35AE2F, 10);
     }
     &.descend .card-front {
-      background: darken(#35AE2F, 10);
+      background-color: darken(#35AE2F, 10);
     }
     &.flipped {
       .card-front {
@@ -148,15 +182,15 @@
       position: relative;
       .card-front {
         font-size: 16px;
-        background: white;
+        background-color: white;
         border-color: black;
         color: black;
       }
       .card-back {
         font-size: 16px;
-        background: #c8c8c8;
-        border-color: #c8c8c8;
-        color: white;
+        background-color: white;
+        border-color: black;
+        color: #aaa;
         cursor: pointer;
       }
     }
@@ -170,6 +204,13 @@
       position: absolute;
       top: 10px;
       right: 10px;
+      color: black;
+      text-shadow:
+        1px 1px 0 white,
+        -1px 1px 0 white,
+        1px -1px 0 white,
+        -1px -1px 0 white
+        ;
     }
   }
 </style>

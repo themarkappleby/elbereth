@@ -176,6 +176,7 @@ export default new Vuex.Store({
       state.map = [ENTRANCE]
       state.deckSize = state.deck.length + 1
       state.floor += 1
+      window.recenter()
       commit('explore')
     }
   }

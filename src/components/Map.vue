@@ -1,6 +1,6 @@
 <template>
   <div class="map">
-    <div class="map-inner">
+    <div class="map-inner" v-bind:style="wood">
       <Card
         v-for="card in map"
         v-bind:card="card"
@@ -14,23 +14,33 @@
 <script>
   import store from '../store'
   import Card from './Card.vue'
+  import woodImage from '../assets/wood.jpg'
 
   window.map = { width: 5000, height: 5000 }
+
+  window.recenter = () => {
+    const mapInner = document.querySelector('.map-inner')
+    mapInner.style.width = window.map.width + 'px'
+    mapInner.style.height = window.map.height + 'px'
+    document.querySelector('.map').scrollTo(
+      (window.map.width / 2) - (window.innerWidth / 2),
+      (window.map.height / 2) - (window.innerHeight / 2)
+    )
+  }
 
   export default {
     components: { Card },
     mounted: function () {
-      const mapInner = document.querySelector('.map-inner')
-      mapInner.style.width = window.map.width + 'px'
-      mapInner.style.height = window.map.height + 'px'
-      document.querySelector('.map').scrollTo(
-        (window.map.width / 2) - (window.innerWidth / 2),
-        (window.map.height / 2) - (window.innerHeight / 2)
-      )
+      window.recenter()
     },
     computed: {
       map () {
         return store.state.map;
+      },
+      wood () {
+        return {
+          backgroundImage: `url(${woodImage})`
+        }
       }
     },
     methods: {

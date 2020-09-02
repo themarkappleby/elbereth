@@ -72,6 +72,10 @@
                 store.commit('explore')
                 if (store.state.engaged.type === 'boss') {
                   store.commit('flip', { card: store.state.inv.key })
+                  if (store.state.floor === 7) {
+                    alert('Congratulations! You Won!')
+                    window.location.reload()
+                  }
                 }
                 store.commit('engage', {card: null})
               }

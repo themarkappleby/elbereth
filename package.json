@@ -6,8 +6,9 @@
   "author": "themarkappleby <themarkappleby@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "vue serve --open",
-    "build": "vue build"
+    "start": "vue serve src/App.vue --open",
+    "build": "vue build",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {},
   "dependencies": {

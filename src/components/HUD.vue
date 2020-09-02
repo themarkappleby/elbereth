@@ -27,6 +27,7 @@
 <script>
   import store from '../store'
   import Card from './Card.vue'
+
   export default {
     components: { Card },
     methods: {
@@ -73,8 +74,10 @@
                 if (store.state.engaged.type === 'boss') {
                   store.commit('flip', { card: store.state.inv.key })
                   if (store.state.floor === 7) {
-                    alert('Congratulations! You Won!')
-                    window.location.reload()
+                    window.setTimeout(() => {
+                      alert('Congratulations! You Won!')
+                      window.location.reload()
+                    }, 500)
                   }
                 }
                 store.commit('engage', {card: null})

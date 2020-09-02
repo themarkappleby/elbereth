@@ -58,8 +58,10 @@
             if (card.type === 'boss') {
               store.commit('flip', { card: store.state.inv.key })
               if (store.state.floor === 7) {
-                alert('Congratulations! You Won!')
-                window.location.reload()
+                window.setTimeout(() => {
+                  alert('Congratulations! You Won!')
+                  window.location.reload()
+                }, 500)
               }
             }
           } else {
@@ -72,6 +74,12 @@
               type: 'engage',
               card
             })
+            if (allDiscared(store.state.inv)) {
+              window.setTimeout(() => {
+                alert('You Lose. Try Again.')
+                window.location.reload()
+              }, 500)
+            }
           }
         } else if (card.type === 'item') {
           const invCard = store.state.inv[card.id]
@@ -113,6 +121,16 @@
         }
       }
     }
+  }
+
+  function allDiscared (inv) {
+    let discarded = true
+    Object.keys(inv).forEach(key => {
+      if (inv[key].discarded === false) {
+        discarded = false
+      }
+    })
+    return discarded
   }
 </script>
 

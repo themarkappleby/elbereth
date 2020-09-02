@@ -46,6 +46,7 @@
     methods: {
       click(evt, card) {
         if (card.flipped) return false
+        if (store.state.forceHUD) return false
         if (store.state.engaged && store.state.engaged.id === card.id) {
           return false
         }

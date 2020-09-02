@@ -152,7 +152,6 @@
     bottom: -60px;
     left: 20px;
     width: calc(100vw - 40px);
-    z-index: 20;
     transition: all 0.2s ease-in-out;
     display: flex;
     &:before {
@@ -172,7 +171,6 @@
     &.force {
       bottom: -10px;
       &:before {
-        pointer-events: all;
         height: 100vh;
         opacity: 1;
         filter: grayscale(0);

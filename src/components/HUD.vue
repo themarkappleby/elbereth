@@ -139,6 +139,7 @@
   .remaining {
     top: 16px;
     left: 16px;
+    color: white;
     span {
       vertical-align: middle;
     }
@@ -154,6 +155,9 @@
     width: calc(100vw - 40px);
     transition: all 0.2s ease-in-out;
     display: flex;
+    @media (max-width: 600px) {
+      bottom: -5px;
+    }
     &:before {
       content: '';
       transition: all 0.2s ease-in-out;
@@ -183,12 +187,16 @@
     flex-direction: row;
     z-index: 25;
     position: relative;
+    justify-content: center;
+    &.left {
+      width: 40%;
+    }
     &.middle {
-      justify-content: center;
+      width: 40%;
     }
     &.right {
+      width: 20%;
       right: 0;
-      justify-content: flex-end;
     }
   }
 </style>

@@ -24,7 +24,7 @@
     mapInner.style.height = window.map.height + 'px'
     document.querySelector('.map').scrollTo(
       (window.map.width / 2) - (window.innerWidth / 2),
-      (window.map.height / 2) - (window.innerHeight / 2)
+      (window.map.height / 2) - (window.innerHeight / 2) + 50
     )
   }
 
@@ -141,6 +141,7 @@
     width: 100vw;
     height: 100vh;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     position: relative;
     &:after {
       content: '';

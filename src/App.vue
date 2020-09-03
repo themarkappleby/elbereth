@@ -19,11 +19,13 @@
 </script>
 
 <style>
-  body {
+  html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
     font-family: sans-serif;
+    width: 100vw;
+    height: 100vh;
   }
   *, *:before, *:after {
     box-sizing: border-box;

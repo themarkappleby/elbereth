@@ -151,6 +151,11 @@
       top: auto;
       margin: 0;
       position: relative;
+      @media (max-width: 600px) {
+        width: 40px;
+        height: 60px;
+        border-radius: 7px;
+      }
       .card-front {
         font-size: 16px;
         background-color: white;

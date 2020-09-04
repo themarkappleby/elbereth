@@ -1,12 +1,10 @@
-function posToPix (x, y) {
+function posToPix (x, y, width, height) {
   const centerX = window.map.width / 2
   const centerY = window.map.height / 2
-  const cardWidth = 85
-  const cardHeight = 118
-  const gap = 5
+  const gap = 8
   return {
-    x: centerX + (x * (cardWidth + gap)),
-    y: centerY + (y * (cardHeight + gap))
+    x: centerX + (x * (width + gap)),
+    y: centerY + (y * (height + gap))
   }
 }
 

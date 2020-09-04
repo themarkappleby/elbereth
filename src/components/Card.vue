@@ -4,6 +4,7 @@
     v-bind:class="{ flipped, safe, inv, engaged, boss, descend }"
     v-bind:style="pos"
     v-on:click="$emit('click', $event, card)"
+    ref="card"
   >
     <div class="card-front" v-bind:style="frontImage">
       <Die v-bind:value="card.strength" size="small" />
@@ -21,6 +22,24 @@
   export default {
     components: { Die },
     props: [ 'card' ],
+    data: () => {
+      return {
+        pos: {}
+      }
+    },
+    mounted: function () {
+      if (this.card.x !== undefined && this.card.y !== undefined) {
+        const width = this.$refs.card.clientWidth
+        const height = this.$refs.card.clientHeight
+        const px = posToPix(this.card.x, this.card.y, width, height)
+        this.pos = {
+          left: `${px.x}px`,
+          top: `${px.y}px`,
+          marginLeft: `-${width/2}px`,
+          marginTop: `-${height/2}px`
+        }
+      }
+    },
     computed: {
       flipped() {
         return this.card.flipped
@@ -40,16 +59,6 @@
       engaged() {
         if (!store.state.engaged) return false
         return this.card.id === store.state.engaged.id
-      },
-      pos() {
-        if (this.card.x !== undefined && this.card.y !== undefined) {
-          const px = posToPix(this.card.x, this.card.y)
-          return {
-            left: `${px.x}px`,
-            top: `${px.y}px`
-          }
-        }
-        return {}
       },
       frontImage() {
         if (this.card.inv) {
@@ -78,12 +87,17 @@
 <style lang="scss" scoped>
   .card {
     width: 85px;
-    height: 118px;
-    margin-left: -35px;
-    margin-top: -47px;
     position: absolute;
     top: 0;
     left: 0;
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 138.8235294%;
+    }
+    @media (max-width: 600px) {
+      width: 70px;
+    }
     @media (min-width: 601px) {
       &:hover {
         .card-front {
@@ -147,15 +161,12 @@
       }
     }
     &.inv {
-      width: 120px;
-      height: 175px;
+      width: calc(100% / 8.2);
       border-radius: 14px;
       top: auto;
       margin: 0;
       position: relative;
       @media (max-width: 600px) {
-        width: 40px;
-        height: 60px;
         border-radius: 7px;
       }
       .card-front {

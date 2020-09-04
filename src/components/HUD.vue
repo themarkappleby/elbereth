@@ -9,21 +9,16 @@
         Cards {{seenCards}} of {{totalCards}}
       </div>
     </div>
+    <div class="overlay" v-bind:class="{force: forceHUD}"></div>
     <div class="cards" v-bind:class="{force: forceHUD}">
-      <div class="group left">
-        <Card v-bind:card="inv.sword" v-on:click="click" v-if="!inv.sword.discarded" />
-        <Card v-bind:card="inv.staff" v-on:click="click" v-if="!inv.staff.discarded" />
-        <Card v-bind:card="inv.bow" v-on:click="click" v-if="!inv.bow.discarded" />
-      </div>
-      <div class="group middle">
-        <Card v-bind:card="inv.armor" v-on:click="click" v-if="!inv.armor.discarded" />
-        <Card v-bind:card="inv.helm" v-on:click="click" v-if="!inv.helm.discarded" />
-        <Card v-bind:card="inv.gauntlets" v-on:click="click" v-if="!inv.gauntlets.discarded" />
-      </div>
-      <div class="group right">
-        <Card v-bind:card="inv.coin" v-on:click="click" />
-        <Card v-bind:card="inv.key" v-on:click="click" />
-      </div>
+      <Card v-bind:card="inv.sword" v-on:click="click" v-if="!inv.sword.discarded" />
+      <Card v-bind:card="inv.staff" v-on:click="click" v-if="!inv.staff.discarded" />
+      <Card v-bind:card="inv.bow" v-on:click="click" v-if="!inv.bow.discarded" />
+      <Card v-bind:card="inv.armor" v-on:click="click" v-if="!inv.armor.discarded" />
+      <Card v-bind:card="inv.helm" v-on:click="click" v-if="!inv.helm.discarded" />
+      <Card v-bind:card="inv.gauntlets" v-on:click="click" v-if="!inv.gauntlets.discarded" />
+      <Card v-bind:card="inv.coin" v-on:click="click" />
+      <Card v-bind:card="inv.key" v-on:click="click" />
     </div>
   </div>
 </template>
@@ -138,53 +133,38 @@
   }
   .cards {
     position: absolute;
-    bottom: -60px;
-    left: 20px;
-    width: calc(100vw - 40px);
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1400px;
     transition: all 0.2s ease-in-out;
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    z-index: 25;
     @media (max-width: 600px) {
-      bottom: -5px;
-    }
-    &:before {
-      content: '';
-      transition: all 0.2s ease-in-out;
-      display: block;
-      position: absolute;
       bottom: 0;
-      left: -20px;
-      width: 100vw;
-      height: 200px;
-      opacity: 0.2;
-      pointer-events: none;
-      background: linear-gradient(rgba(#AE2F2E, 0), rgba(#AE2F2E, 0.7));
-      filter: grayscale(100%);
     }
     &.force {
-      bottom: -10px;
-      &:before {
-        height: 100vh;
-        opacity: 1;
-        filter: grayscale(0);
-      }
+      bottom: 10px;
     }
   }
-  .group {
-    width: 33.33%;
-    display: flex;
-    flex-direction: row;
-    z-index: 25;
-    position: relative;
-    justify-content: center;
-    &.left {
-      width: 40%;
-    }
-    &.middle {
-      width: 40%;
-    }
-    &.right {
-      width: 20%;
-      right: 0;
+  .overlay {
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 200px;
+    opacity: 0.2;
+    pointer-events: none;
+    background: linear-gradient(rgba(#AE2F2E, 0), rgba(#AE2F2E, 0.7));
+    filter: grayscale(100%);
+    &.force {
+      height: 100vh;
+      opacity: 1;
+      filter: grayscale(0);
     }
   }
 </style>

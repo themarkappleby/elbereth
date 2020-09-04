@@ -27,17 +27,11 @@
         pos: {}
       }
     },
-    mounted: function () {
-      if (this.card.x !== undefined && this.card.y !== undefined) {
-        const width = this.$refs.card.clientWidth
-        const height = this.$refs.card.clientHeight
-        const px = posToPix(this.card.x, this.card.y, width, height)
-        this.pos = {
-          left: `${px.x}px`,
-          top: `${px.y}px`,
-          marginLeft: `-${width/2}px`,
-          marginTop: `-${height/2}px`
-        }
+    mounted: positionCard,
+    watch: {
+      card: {
+        handler: positionCard,
+        deep: true
       }
     },
     computed: {
@@ -80,6 +74,19 @@
           backgroundImage: `url(${images.Open})`
         }
       }
+    }
+  }
+
+  function positionCard () {
+    if (this.card.inv) return
+    const width = this.$refs.card.clientWidth
+    const height = this.$refs.card.clientHeight
+    const px = posToPix(this.card.x, this.card.y, width, height)
+    this.pos = {
+      left: `${px.x}px`,
+      top: `${px.y}px`,
+      marginLeft: `-${width/2}px`,
+      marginTop: `-${height/2}px`
     }
   }
 </script>
@@ -179,13 +186,14 @@
         background-color: white;
         color: #aaa;
         cursor: pointer;
+        overflow: hidden;
         &:after {
           content: '';
           display: block;
           position: absolute;
           top: 0;
           left: 0;
-          width: 100%;
+          width: 105%;
           height: 100%;
           background: black;
           border-radius: 9px;

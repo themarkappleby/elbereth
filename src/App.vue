@@ -10,6 +10,9 @@
   import Map from './components/Map.vue'
   import HUD from './components/HUD.vue'
 
+  import FastClick from 'fastclick'
+  FastClick.attach(document.body)
+
   store.commit('shuffle')
   store.commit('explore')
 

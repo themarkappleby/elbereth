@@ -83,7 +83,7 @@
             }
           }
         } else if (card.type === 'item') {
-          const invCard = store.state.inv[card.id]
+          const invCard = store.state.inv[card.name.toLowerCase()]
           if (invCard && invCard.flipped) {
             store.commit({ type: 'flip', card })
             store.commit({

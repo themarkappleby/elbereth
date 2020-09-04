@@ -2,8 +2,12 @@
   <div class="HUD">
     <Die v-bind:value="die" />
     <div class="remaining">
-      <span>{{remaining}} / {{total}}</span>
-      <span class="floor">Floor {{floor}}</span>
+      <div class="remaining-floor">
+        Floor {{floor}} of {{floors}}
+      </div>
+      <div class="remaining-cards">
+        Cards {{seenCards}} of {{totalCards}}
+      </div>
     </div>
     <div class="cards" v-bind:class="{force: forceHUD}">
       <div class="group left">
@@ -88,21 +92,23 @@
         }
       }
     },
+    data: () => {
+      return {
+        floors: ((store.state.deck.length + store.state.map.length - 3) / 7) + 1
+      }
+    },
     computed: {
       inv () {
         return store.state.inv
       },
-      strength () {
-        return store.state.requiredStrength
-      },
       floor () {
         return store.state.floor
       },
-      remaining () {
-        return store.state.deck.length
+      seenCards () {
+        return store.state.map.length
       },
-      total () {
-        return store.state.deckSize
+      totalCards () {
+        return store.state.deck.length + store.state.map.length
       },
       forceHUD () {
         return store.state.forceHUD
@@ -115,27 +121,19 @@
 </script>
 
 <style lang="scss" scoped>
-  .strength, .remaining {
-    position: absolute;
-    top: 36px;
-    font-weight: bold;
-    font-size: 30px;
-    text-align: right;
-  }
-  .strength {
-    color: #AE2F2E;
-    right: 110px;
-  }
   .remaining {
+    position: absolute;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
     top: 16px;
     left: 16px;
     color: white;
-    span {
-      vertical-align: middle;
+    &-floor {
+      margin-bottom: 3px;
     }
-    .floor {
-      font-size: 12px;
-      margin-left: 16px;
+    &-cards {
+      font-size: 16px;
     }
   }
   .cards {

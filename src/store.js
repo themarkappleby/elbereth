@@ -33,6 +33,23 @@ const BOSS = {
   y: 0
 }
 
+const DECK = [
+  DESCEND,
+  BOSS,
+  ...addCards('Rat', 12, { safe: false, strength: 3 }),
+  ...addCards('Spider', 12, { safe: false, strength: 4 }),
+  ...addCards('Snake', 12, { safe: false, strength: 5 }),
+  ...addCards('Wall', 15, { safe: false }),
+  ...addCards('Shop', 3, { safe: true }),
+  ...addCards('Coin', 3, { safe: true, flipped: false, type: 'item', x: 0, y: 0 }),
+  { name: 'Sword', id: 'sword', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
+  { name: 'Staff', id: 'staff', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
+  { name: 'Bow', id: 'bow', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
+  { name: 'Helm', id: 'helm', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
+  { name: 'Gauntlets', id: 'gauntlets', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
+  { name: 'Armor', id: 'armor', safe: true, flipped: false, type: 'item', x: 0, y: 0 }
+]
+
 export default new Vuex.Store({
   state: {
     die: 0,
@@ -42,23 +59,7 @@ export default new Vuex.Store({
     engaged: null,
     shopping: false,
     map: [ENTRANCE],
-    deckSize: 45,
-    deck: [
-      DESCEND,
-      BOSS,
-      ...addCards('Rat', 7, { safe: false, strength: 3 }),
-      ...addCards('Spider', 7, { safe: false, strength: 4 }),
-      ...addCards('Snake', 7, { safe: false, strength: 5 }),
-      ...addCards('Shop', 2, { safe: true }),
-      ...addCards('Wall', 12, { safe: false }),
-      { name: 'Sword', id: 'sword', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
-      { name: 'Staff', id: 'staff', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
-      { name: 'Bow', id: 'bow', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
-      { name: 'Helm', id: 'helm', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
-      { name: 'Gauntlets', id: 'gauntlets', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
-      { name: 'Armor', id: 'armor', safe: true, flipped: false, type: 'item', x: 0, y: 0 },
-      { name: 'Coin', id: 'coin', safe: true, flipped: false, type: 'item', x: 0, y: 0 }
-    ],
+    deck: DECK,
     inv: {
       sword: {
         name: 'Sword',
@@ -174,7 +175,6 @@ export default new Vuex.Store({
         card.flipped = false
       })
       state.map = [ENTRANCE]
-      state.deckSize = state.deck.length + 1
       state.floor += 1
       window.recenter()
       commit('explore')

@@ -6,9 +6,7 @@
     v-on:click="$emit('click', $event, card)"
   >
     <div class="card-front" v-bind:style="frontImage">
-      <div class="strength" v-if="card.strength">
-        {{card.strength}}
-      </div>
+      <Die v-bind:value="card.strength" size="small" />
     </div>
     <div class="card-back" v-bind:style="backImage"></div>
   </div>
@@ -18,8 +16,10 @@
   import posToPix from '../utils/posToPix'
   import images from '../utils/images'
   import store from '../store'
+  import Die from './Die.vue'
 
   export default {
+    components: { Die },
     props: [ 'card' ],
     computed: {
       flipped() {
@@ -84,28 +84,30 @@
     position: absolute;
     top: 0;
     left: 0;
-    &:hover {
-      .card-front {
-        box-shadow: 0 10px 10px rgba(black,0.5);
-        transform: translateY(-10px) rotate(4deg) scale(1.05);
+    @media (min-width: 601px) {
+      &:hover {
+        .card-front {
+          box-shadow: 0 10px 10px rgba(black,0.5);
+          transform: translateY(-10px) rotate(4deg) scale(1.05);
+        }
+        z-index: 1;
       }
-      z-index: 1;
-    }
-    &.inv:hover {
-      z-index: 1;
-      .card-front {
-        box-shadow: 0 10px 10px rgba(black,0.5);
-        transform: translateY(-50px) rotate(4deg) scale(1.05);
+      &.inv:hover {
+        z-index: 1;
+        .card-front {
+          box-shadow: 0 10px 10px rgba(black,0.5);
+          transform: translateY(-50px) rotate(4deg) scale(1.05);
+        }
       }
-    }
-    &.inv.flipped:hover {
-      z-index: 99999;
-      .card-front {
-        transform: none;
-      }
-      .card-back {
-        box-shadow: 0 10px 10px rgba(black,0.2);
-        transform: translateY(-5px) rotateY(0) rotateZ(3deg) scale(1.05);
+      &.inv.flipped:hover {
+        z-index: 99999;
+        .card-front {
+          transform: none;
+        }
+        .card-back {
+          box-shadow: 0 10px 10px rgba(black,0.2);
+          transform: translateY(-5px) rotateY(0) rotateZ(3deg) scale(1.05);
+        }
       }
     }
     .card-front, .card-back {

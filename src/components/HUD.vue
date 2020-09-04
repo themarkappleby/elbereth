@@ -1,6 +1,6 @@
 <template>
   <div class="HUD">
-    <div class="die" v-if="die">{{ die }}</div>
+    <Die v-bind:value="die" />
     <div class="remaining">
       <span>{{remaining}} / {{total}}</span>
       <span class="floor">Floor {{floor}}</span>
@@ -27,9 +27,10 @@
 <script>
   import store from '../store'
   import Card from './Card.vue'
+  import Die from './Die.vue'
 
   export default {
-    components: { Card },
+    components: { Card, Die },
     methods: {
       click(evt, card) {
         if (store.state.shopping) {
@@ -114,17 +115,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .die {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    box-shadow: 0 0 20px rgba(black, 0.4);
-    padding: 20px 27px;
-    background: white;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 30px;
-  }
   .strength, .remaining {
     position: absolute;
     top: 36px;

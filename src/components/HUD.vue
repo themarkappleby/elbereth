@@ -136,7 +136,7 @@
     bottom: -120px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: calc(100vw - 200px);
     max-width: 1400px;
     transition: all 0.2s ease-in-out;
     display: flex;
@@ -145,6 +145,7 @@
     z-index: 25;
     @media (max-width: 600px) {
       bottom: 0;
+      width: 100%;
     }
     &.force {
       bottom: 10px;

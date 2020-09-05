@@ -151,7 +151,8 @@ export default new Vuex.Store({
       state.die += 1
     },
     discard (state, payload) {
-      payload.card.discarded = true
+      payload.card.type = 'damage'
+      payload.card.flipped = false
     }
   },
   actions: {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="card"
-    v-bind:class="{ flipped, safe, inv, engaged, boss, descend }"
+    v-bind:class="classes"
     v-bind:style="pos"
     v-on:click="$emit('click', $event, card)"
     ref="card"
@@ -35,20 +35,16 @@
       }
     },
     computed: {
-      flipped() {
-        return this.card.flipped
-      },
-      safe() {
-        return this.card.safe
-      },
-      inv() {
-        return this.card.inv
-      },
-      boss() {
-        return this.card.type === 'boss'
-      },
-      descend() {
-        return this.card.id === 'descend'
+      classes () {
+        const classObj = {}
+        if (this.card.flipped) classObj.flipped = true
+        if (this.card.safe) classObj.safe = true
+        if (this.card.inv) classObj.inv = true
+        if (this.card.type === 'damage') classObj.damage = true
+        if (this.card.type === 'boss') classObj.boss = true
+        if (this.card.id === 'descend') classObj.descend = true
+        classObj[this.card.name] = true
+        return classObj
       },
       engaged() {
         if (!store.state.engaged) return false
@@ -78,7 +74,7 @@
   }
 
   function positionCard () {
-    if (this.card.inv) return
+    if (this.card.inv || this.card.type === 'damage') return
     const width = this.$refs.card.clientWidth
     const height = this.$refs.card.clientHeight
     const px = posToPix(this.card.x, this.card.y, width, height)
@@ -167,7 +163,7 @@
         transform: rotateY(0deg);
       }
     }
-    &.inv {
+    &.inv, &.damage {
       width: calc(100% / 8.2);
       border-radius: 14px;
       top: auto;
@@ -201,6 +197,23 @@
         }
       }
     }
+    &.damage {
+      .card-back {
+        display: none;
+      }
+      .card-front {
+        background: rgba(#AE2F2E, 0.4) !important;
+        border: 3px solid #AE2F2E;
+        box-shadow: none;
+        cursor: default;
+      }
+      &:hover {
+        .card-front {
+          transform: none;
+          box-shadow: none;
+        }
+      }
+    }
     &.engaged {
       z-index: 22;
       .card-front {
@@ -219,6 +232,12 @@
         1px -1px 0 white,
         -1px -1px 0 white
         ;
+    }
+    &.Armor, &.Coin {
+      margin-left: 30px;
+      @media (max-width: 600px) {
+        margin-left: 10px;
+      }
     }
   }
 </style>

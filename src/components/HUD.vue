@@ -11,12 +11,12 @@
     </div>
     <div class="overlay" v-bind:class="{force: forceHUD}"></div>
     <div class="cards" v-bind:class="{force: forceHUD}">
-      <Card v-bind:card="inv.sword" v-on:click="click" v-if="!inv.sword.discarded" />
-      <Card v-bind:card="inv.staff" v-on:click="click" v-if="!inv.staff.discarded" />
-      <Card v-bind:card="inv.bow" v-on:click="click" v-if="!inv.bow.discarded" />
-      <Card v-bind:card="inv.armor" v-on:click="click" v-if="!inv.armor.discarded" />
-      <Card v-bind:card="inv.helm" v-on:click="click" v-if="!inv.helm.discarded" />
-      <Card v-bind:card="inv.gauntlets" v-on:click="click" v-if="!inv.gauntlets.discarded" />
+      <Card v-bind:card="inv.sword" v-on:click="click" />
+      <Card v-bind:card="inv.staff" v-on:click="click" />
+      <Card v-bind:card="inv.bow" v-on:click="click" />
+      <Card v-bind:card="inv.armor" v-on:click="click" />
+      <Card v-bind:card="inv.helm" v-on:click="click" />
+      <Card v-bind:card="inv.gauntlets" v-on:click="click" />
       <Card v-bind:card="inv.coin" v-on:click="click" />
       <Card v-bind:card="inv.key" v-on:click="click" />
     </div>
@@ -107,6 +107,9 @@
       },
       forceHUD () {
         return store.state.forceHUD
+      },
+      damage () {
+        return store.state.damage
       },
       die () {
         return store.state.die

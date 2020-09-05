@@ -132,7 +132,7 @@
   function allDiscared (inv) {
     let discarded = true
     Object.keys(inv).forEach(key => {
-      if (inv[key].type === 'damage') {
+      if (inv[key].type !== 'damage' && key !== 'coin' && key !== 'key') {
         discarded = false
       }
     })

@@ -32,7 +32,7 @@
     components: { Card, Die },
     methods: {
       click(evt, card) {
-        if (card.type === 'damaged') return
+        if (card.type === 'damage') return
         if (store.state.shopping) {
           if (card.flipped && card.name !== 'Key') {
             store.commit({ type: 'flip', card })

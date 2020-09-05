@@ -64,43 +64,37 @@ export default new Vuex.Store({
         name: 'Sword',
         type: 'weapon',
         inv: true,
-        flipped: false,
-        discarded: false
+        flipped: false
       },
       staff: {
         name: 'Staff',
         type: 'weapon',
         inv: true,
-        flipped: true,
-        discarded: false
+        flipped: true
       },
       bow: {
         name: 'Bow',
         type: 'weapon',
         inv: true,
-        flipped: true,
-        discarded: false
+        flipped: true
       },
       armor: {
         name: 'Armor',
         type: 'armor',
         inv: true,
-        flipped: false,
-        discarded: false
+        flipped: false
       },
       gauntlets: {
         name: 'Gauntlets',
         type: 'armor',
         inv: true,
-        flipped: true,
-        discarded: false
+        flipped: true
       },
       helm: {
         name: 'Helm',
         type: 'armor',
         inv: true,
-        flipped: true,
-        discarded: false
+        flipped: true
       },
       coin: {
         name: 'Coin',

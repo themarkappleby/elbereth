@@ -107,7 +107,7 @@
               type: 'discard',
               card: store.state.inv[id]
             })
-          } else {
+          } else if (store.state.inv[id].type !== 'damage') {
             store.commit({
               type: 'flip',
               card: store.state.inv[id]
@@ -132,7 +132,7 @@
   function allDiscared (inv) {
     let discarded = true
     Object.keys(inv).forEach(key => {
-      if (inv[key].discarded === false) {
+      if (inv[key].type === 'damage') {
         discarded = false
       }
     })

@@ -44,11 +44,8 @@
         if (this.card.type === 'boss') classObj.boss = true
         if (this.card.id === 'descend') classObj.descend = true
         classObj[this.card.name] = true
+        if (store.state.engaged && store.state.engaged.id === this.card.id) classObj.engaged = true
         return classObj
-      },
-      engaged() {
-        if (!store.state.engaged) return false
-        return this.card.id === store.state.engaged.id
       },
       frontImage() {
         if (this.card.inv) {

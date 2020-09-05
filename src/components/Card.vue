@@ -165,9 +165,11 @@
       border-radius: 14px;
       top: auto;
       margin: 0;
+      margin-left: 4px;
       position: relative;
       @media (max-width: 600px) {
         border-radius: 7px;
+        margin-left: 2px;
       }
       .card-front {
         font-size: 16px;
@@ -233,7 +235,7 @@
     &.Armor, &.Coin {
       margin-left: 30px;
       @media (max-width: 600px) {
-        margin-left: 10px;
+        margin-left: 15px;
       }
     }
   }

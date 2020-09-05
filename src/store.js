@@ -37,6 +37,7 @@ export default new Vuex.Store({
   state: {
     die: 0,
     floor: 1,
+    discardPerFloor: 7,
     forceHUD: false,
     requiredStrength: 0,
     engaged: null,
@@ -166,14 +167,13 @@ export default new Vuex.Store({
       })
       state.deck = [...state.deck, ...state.map]
       commit('shuffle')
-      state.deck = [...state.deck.splice(7), BOSS, DESCEND]
+      state.deck = [...state.deck.splice(state.discardPerFloor), BOSS, DESCEND]
       commit('shuffle')
       state.deck.forEach(card => {
         card.x = 0
         card.y = 0
         card.flipped = false
       })
-      console.log(state.deck)
       state.map = [ENTRANCE]
       state.floor += 1
       window.recenter()

@@ -73,7 +73,7 @@
                 store.commit('explore')
                 if (store.state.engaged.type === 'boss') {
                   store.commit('flip', { card: store.state.inv.key })
-                  if (store.state.floor === 7) {
+                  if (store.state.floor === this.floors) {
                     window.setTimeout(() => {
                       alert('Congratulations! You Won!')
                       window.location.reload()
@@ -89,7 +89,7 @@
     },
     data: () => {
       return {
-        floors: ((store.state.deck.length + store.state.map.length - 3) / 7) + 1
+        floors: ((store.state.deck.length + store.state.map.length - 3) / store.state.discardPerFloor) + 1
       }
     },
     computed: {

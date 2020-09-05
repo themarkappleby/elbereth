@@ -33,6 +33,11 @@
     mounted: function () {
       window.recenter()
     },
+    data: () => {
+      return {
+        floors: ((store.state.deck.length + store.state.map.length - 3) / store.state.discardPerFloor) + 1
+      }
+    },
     computed: {
       map () {
         return store.state.map;
@@ -58,7 +63,7 @@
             store.commit('explore')
             if (card.type === 'boss') {
               store.commit('flip', { card: store.state.inv.key })
-              if (store.state.floor === 7) {
+              if (store.state.floor === this.floors) {
                 window.setTimeout(() => {
                   alert('Congratulations! You Won!')
                   window.location.reload()

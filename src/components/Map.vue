@@ -154,7 +154,7 @@
       width: 100vw;
       height: 100vh;
       position: fixed;
-      box-shadow: inset 0 0 700px rgba(black, 0.7);
+      box-shadow: inset 0 0 700px rgba(black, 0.8);
       top: 0;
       left: 0;
       pointer-events: none;

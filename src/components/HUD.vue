@@ -128,6 +128,15 @@
     top: 16px;
     left: 16px;
     color: white;
+    text-shadow:
+        0 2px 0 black,
+        0 -2px 0 black,
+        2px 0 0 black,
+        -2px 0 0 black,
+        2px 2px 0 black,
+        -2px 2px 0 black,
+        2px -2px 0 black,
+        -2px -2px 0 black;
     &-floor {
       margin-bottom: 3px;
     }
